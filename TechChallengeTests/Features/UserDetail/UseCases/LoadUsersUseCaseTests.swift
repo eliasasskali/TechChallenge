@@ -6,18 +6,18 @@ import XCTest
 @testable import TechChallenge
 
 final class LoadUsersUseCaseTests: XCTestCase {
-    func test_whenLoadUsersIsCalled_thenReturnsDataSourceUsers() async {
+    func test_whenLoadUsersIsCalled_thenReturnsDataSourceUsers() async throws {
         let mockDataSource = UsersDataSourceMock()
         mockDataSource.storedUsers = UsersDataSourceMock.jsonUsers
         let useCase = LoadUsersUseCaseDefault(dataSource: mockDataSource)
         
-        let users = await useCase.loadStoredUsersOrFetch()
+        let users = try await useCase.loadStoredUsersOrFetch()
         
         XCTAssertTrue(mockDataSource.loadStoredUsersCalled)
         XCTAssertEqual(users, UsersDataSourceMock.jsonUsers)
     }
     
-    func test_whenFetchingNextPage_thenReturnsDataSourceUsers() async {
+    func test_whenFetchingNextPage_thenReturnsDataSourceUsers() async throws {
         let mockDataSource = UsersDataSourceMock()
         let nextPageUsers = [User(
             id: "12345",
@@ -40,7 +40,7 @@ final class LoadUsersUseCaseTests: XCTestCase {
         mockDataSource.nextPageUsers = nextPageUsers
         let useCase = LoadUsersUseCaseDefault(dataSource: mockDataSource)
         
-        let users = await useCase.fetchNextPage()
+        let users = try await useCase.fetchNextPage()
         
         XCTAssertTrue(mockDataSource.fetchNextPageCalled)
         XCTAssertEqual(users, UsersDataSourceMock.jsonUsers + nextPageUsers)

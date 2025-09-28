@@ -7,7 +7,7 @@ import XCTest
 
 final class DeleteUserUseCaseTest: XCTestCase {
 
-    func test_whenDeleteUserIsCalled_thenUsersAreReturned() async {
+    func test_whenDeleteUserIsCalled_thenUsersAreReturned() async throws {
         let mockDataSource = UsersDataSourceMock()
         let jsonUsers = UsersDataSourceMock.jsonUsers
         guard let lastUser = jsonUsers.last else {
@@ -18,7 +18,7 @@ final class DeleteUserUseCaseTest: XCTestCase {
         let useCase = DeleteUserUseCaseDefault(dataSource: mockDataSource)
         let expected = Array(jsonUsers.dropLast())
         
-        let users = await useCase.execute(id: lastUser.id)
+        let users = try await useCase.execute(id: lastUser.id)
         
         XCTAssertTrue(mockDataSource.deleteUserCalled)
         XCTAssertEqual(users, expected)

@@ -12,7 +12,7 @@ struct UserDetailLabelView: View {
         HStack(alignment: .top, spacing: 0) {
             Text(label)
                 .bold()
-            Text(" \(value)")
+            Text(String(" \(value)"))
         }
     }
 }
