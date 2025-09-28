@@ -12,32 +12,50 @@ struct UsersListView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: .zero) {
-                LazyVStack {
-                    ForEach(viewModel.users, id: \.self) { user in
-                        UserListItemView(user: user)
-                    }
+        VStack(spacing: .zero) {
+            List {
+                ForEach(viewModel.users, id: \.self) { user in
+                    UserListItemView(user: user)
+                        .onAppear {
+                            if user == viewModel.users.last {
+                                Task {
+                                    print("load more users")
+                                    await viewModel.loadMoreUsers()
+                                }
+                            }
+                        }
                 }
-                
-                if viewModel.isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, idealHeight: 80)
-                }
+                .onDelete(perform: deleteUser)
             }
-            .task {
-                await viewModel.loadUsers()
+            
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, idealHeight: 80)
             }
         }
-        .padding()
+        .task {
+            await viewModel.loadUsers()
+        }
+    }
+    
+    private func deleteUser(at offsets: IndexSet) {
+        for index in offsets {
+            let userId = viewModel.users[index].id
+            Task {
+                await viewModel.deleteUser(with: userId)
+            }
+        }
     }
 }
-
+    
 #Preview {
     UsersListView(
         viewModel: UsersListViewModel(
             loadUsersUseCase: LoadUsersUseCaseDefault(
                 dataSource: UsersDataSourceDefault()
+            ),
+            deleteUserUseCase: DeleteUserUseCaseDefault(
+                dataSource:  UsersDataSourceDefault()
             )
         )
     )

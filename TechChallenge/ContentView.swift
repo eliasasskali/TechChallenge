@@ -5,11 +5,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    let usersDataSource: UsersDataSource = UsersDataSourceDefault()
+    
     var body: some View {
         UsersListView(
             viewModel: UsersListViewModel(
                 loadUsersUseCase: LoadUsersUseCaseDefault(
-                    dataSource: UsersDataSourceDefault()
+                    dataSource: usersDataSource
+                ),
+                deleteUserUseCase: DeleteUserUseCaseDefault(
+                    dataSource: usersDataSource
                 )
             )
         )

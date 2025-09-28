@@ -5,5 +5,7 @@
 import Foundation
 
 protocol UsersDataSource {
-    func fetchUsers() async -> [User]
+    func fetchNextPage() async -> [User]
+    func loadStoredUsers() async -> [User]
+    func deleteUser(with id: String) async -> [User]
 }
