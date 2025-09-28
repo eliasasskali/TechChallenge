@@ -81,7 +81,7 @@ final actor UsersDataSourceDefault: UsersDataSource {
         }
     }
     
-    func loadStoredUsers() async -> [User] {
+    func loadStoredUsersOrFetch() async -> [User] {
         guard let localUsers = loadUsersFromFile(), !localUsers.isEmpty else {
             return await fetchNextPage()
         }

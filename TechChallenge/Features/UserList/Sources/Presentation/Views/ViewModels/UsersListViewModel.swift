@@ -26,7 +26,7 @@ class UsersListViewModel: ObservableObject {
     func loadUsers() async {
         guard !isLoading else { return }
         isLoading = true
-        users = await loadUsersUseCase.loadStoredUsers()
+        users = await loadUsersUseCase.loadStoredUsersOrFetch()
         isLoading = false
     }
     
@@ -45,8 +45,6 @@ class UsersListViewModel: ObservableObject {
     }
     
     func filterUsers(by searchText: String) -> [User] {
-        let query = searchText.lowercased()
-        
-        return searchUsersUseCase.execute(users: users, query: query)
+        searchUsersUseCase.execute(users: users, searchText: searchText)
     }
 }

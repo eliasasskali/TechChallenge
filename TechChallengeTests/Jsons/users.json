@@ -1,0 +1,142 @@
+[
+  {
+    "registered" : {
+      "date" : "2017-09-11T02:14:12.938Z"
+    },
+    "phone" : "51594912",
+    "email" : "andreas.sorensen@example.com",
+    "location" : {
+      "street" : {
+        "number" : 5460,
+        "name" : "Grønnevej"
+      },
+      "city" : "Ugerløse",
+      "state" : "Nordjylland"
+    },
+    "picture" : {
+      "thumbnail" : "https:\/\/randomuser.me\/api\/portraits\/thumb\/men\/95.jpg",
+      "large" : "https:\/\/randomuser.me\/api\/portraits\/men\/95.jpg",
+      "medium" : "https:\/\/randomuser.me\/api\/portraits\/med\/men\/95.jpg"
+    },
+    "name" : {
+      "last" : "Sørensen",
+      "first" : "Andreas"
+    },
+    "login" : {
+      "uuid" : "1e184e87-7716-4544-88fe-6ecf828e7e24"
+    },
+    "gender" : "male"
+  },
+  {
+    "registered" : {
+      "date" : "2011-01-28T00:17:35.973Z"
+    },
+    "phone" : "0850-4284584",
+    "email" : "alice.breidenbach@example.com",
+    "location" : {
+      "city" : "Radevormwald",
+      "street" : {
+        "number" : 4074,
+        "name" : "Birkenweg"
+      },
+      "state" : "Saarland"
+    },
+    "picture" : {
+      "large" : "https:\/\/randomuser.me\/api\/portraits\/women\/59.jpg",
+      "medium" : "https:\/\/randomuser.me\/api\/portraits\/med\/women\/59.jpg",
+      "thumbnail" : "https:\/\/randomuser.me\/api\/portraits\/thumb\/women\/59.jpg"
+    },
+    "name" : {
+      "last" : "Breidenbach",
+      "first" : "Alice"
+    },
+    "login" : {
+      "uuid" : "1388ce33-803d-4015-962b-bd482bda292e"
+    },
+    "gender" : "female"
+  },
+  {
+    "registered" : {
+      "date" : "2006-04-13T11:36:50.744Z"
+    },
+    "phone" : "(658)-961-7129",
+    "email" : "deniz.velioglu@example.com",
+    "location" : {
+      "city" : "Bartın",
+      "street" : {
+        "name" : "Atatürk Sk",
+        "number" : 3779
+      },
+      "state" : "Giresun"
+    },
+    "picture" : {
+      "large" : "https:\/\/randomuser.me\/api\/portraits\/women\/70.jpg",
+      "medium" : "https:\/\/randomuser.me\/api\/portraits\/med\/women\/70.jpg",
+      "thumbnail" : "https:\/\/randomuser.me\/api\/portraits\/thumb\/women\/70.jpg"
+    },
+    "name" : {
+      "last" : "Velioğlu",
+      "first" : "Deniz"
+    },
+    "login" : {
+      "uuid" : "179d9164-d78d-4638-80c3-7bdf4d8260e5"
+    },
+    "gender" : "female"
+  },
+  {
+    "registered" : {
+      "date" : "2004-12-09T19:09:49.033Z"
+    },
+    "phone" : "(636) 798-7566",
+    "email" : "maureen.jacobs@example.com",
+    "location" : {
+      "city" : "Denver",
+      "street" : {
+        "name" : "Plum St",
+        "number" : 7816
+      },
+      "state" : "Tennessee"
+    },
+    "picture" : {
+      "large" : "https:\/\/randomuser.me\/api\/portraits\/women\/68.jpg",
+      "medium" : "https:\/\/randomuser.me\/api\/portraits\/med\/women\/68.jpg",
+      "thumbnail" : "https:\/\/randomuser.me\/api\/portraits\/thumb\/women\/68.jpg"
+    },
+    "name" : {
+      "last" : "Jacobs",
+      "first" : "Maureen"
+    },
+    "login" : {
+      "uuid" : "693974a4-c300-43ba-8de9-2b14fc85bde5"
+    },
+    "gender" : "female"
+  },
+  {
+    "registered" : {
+      "date" : "2006-07-20T09:41:09.692Z"
+    },
+    "phone" : "25472118",
+    "email" : "lilli.dalsbo@example.com",
+    "location" : {
+      "city" : "Tromsø",
+      "street" : {
+        "number" : 1545,
+        "name" : "Bleikøya"
+      },
+      "state" : "Bergen"
+    },
+    "picture" : {
+      "large" : "https:\/\/randomuser.me\/api\/portraits\/women\/18.jpg",
+      "medium" : "https:\/\/randomuser.me\/api\/portraits\/med\/women\/18.jpg",
+      "thumbnail" : "https:\/\/randomuser.me\/api\/portraits\/thumb\/women\/18.jpg"
+    },
+    "name" : {
+      "last" : "Dalsbø",
+      "first" : "Lilli"
+    },
+    "login" : {
+      "uuid" : "5fda7dbc-93de-4935-b71f-de585a2b94ab"
+    },
+    "gender" : "female"
+  }
+]
