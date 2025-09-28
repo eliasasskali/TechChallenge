@@ -11,13 +11,16 @@ class UsersListViewModel: ObservableObject {
     
     let loadUsersUseCase: LoadUsersUseCase
     let deleteUserUseCase: DeleteUserUseCase
+    let searchUsersUseCase: SearchUsersUseCase
     
     init(
         loadUsersUseCase: LoadUsersUseCase,
-        deleteUserUseCase: DeleteUserUseCase
+        deleteUserUseCase: DeleteUserUseCase,
+        searchUsersUseCase: SearchUsersUseCase
     ) {
         self.loadUsersUseCase = loadUsersUseCase
         self.deleteUserUseCase = deleteUserUseCase
+        self.searchUsersUseCase = searchUsersUseCase
     }
     
     func loadUsers() async {
@@ -39,5 +42,11 @@ class UsersListViewModel: ObservableObject {
         isLoading = true
         users = await deleteUserUseCase.execute(id: id)
         isLoading = false
+    }
+    
+    func filterUsers(by searchText: String) -> [User] {
+        let query = searchText.lowercased()
+        
+        return searchUsersUseCase.execute(users: users, query: query)
     }
 }

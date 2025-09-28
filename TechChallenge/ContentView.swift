@@ -15,7 +15,8 @@ struct ContentView: View {
                 ),
                 deleteUserUseCase: DeleteUserUseCaseDefault(
                     dataSource: usersDataSource
-                )
+                ),
+                searchUsersUseCase: SearchUsersUseCaseDefault()
             )
         )
     }
