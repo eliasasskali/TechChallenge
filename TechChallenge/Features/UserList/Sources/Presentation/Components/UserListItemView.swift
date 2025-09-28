@@ -9,7 +9,7 @@ struct UserListItemView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: user.picture.thumbnail) { image in
+            AsyncImage(url: user.thumbnailPicture) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -20,7 +20,7 @@ struct UserListItemView: View {
             .clipped()
             
             VStack(alignment: .leading) {
-                Text(user.name.formatted)
+                Text(user.formattedName)
                     .font(.headline)
                 Text(user.email)
                     .font(.subheadline)
@@ -29,33 +29,27 @@ struct UserListItemView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background()
-        .cornerRadius(13)
-        .shadow(color: Color.black.opacity(0.15), radius: 3)
-        .padding(4)
     }
 }
 
 #Preview {
     UserListItemView(
         user: .init(
-            name: .init(first: "Jennie", last: "Nichols"),
+            id: "1",
+            name: "Jennie",
+            surname: "Nichols",
             email: "jennie.nichols@example.com",
             phone: "(272) 790-0888",
             gender: "female",
-            registered: .init(date: "2007-07-09T05:51:59.390Z"),
+            registeredDate: "2007-07-09T05:51:59.390Z",
             location: .init(
-                street: .init(number: 8929, name: "Valwood Pkwy"),
+                streetName: "Valwood Pkwy",
+                streetNumber: 8929,
                 city: "Billings",
                 state: "Michigan"
             ),
-            picture: .init(
-                large: URL(string: "https://randomuser.me/api/portraits/men/75.jpg")!,
-                medium: URL(string: "https://randomuser.me/api/portraits/med/men/75.jpg")!,
-                thumbnail: URL(string: "https://randomuser.me/api/portraits/thumb/men/75.jpg")!
-            ),
-            login: .init(uuid: "1234")
+            thumbnailPicture: URL(string: "https://randomuser.me/api/portraits/thumb/men/75.jpg")!,
+            largePicture: URL(string: "https://randomuser.me/api/portraits/men/75.jpg")!
         )
     )
 }

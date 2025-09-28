@@ -5,40 +5,20 @@
 import Foundation
 
 struct User: Codable {
-    struct Name: Codable {
-        let first: String
-        let last: String
-        
-        var formatted: String {
-            return "\(first) \(last)"
-        }
-    }
-    
-    struct Picture: Codable {
-        let large: URL
-        let medium: URL
-        let thumbnail: URL
-    }
-    
-    struct Login: Codable {
-        let uuid: String
-    }
-    
-    struct Registered: Codable {
-        let date: String
-    }
-    
-    let name: Name
+    let id: String
+    let name: String
+    let surname: String
     let email: String
     let phone: String
     let gender: String
-    let registered: Registered
+    let registeredDate: String
     let location: UserLocation
-    let picture: Picture
-    let login: Login
+    let thumbnailPicture: URL
+    let largePicture: URL
     
-    var id: String { login.uuid }
-    var data: String { registered.date }
+    var formattedName: String {
+        return "\(name) \(surname)"
+    }
 }
 
 // MARK: - Hashable
