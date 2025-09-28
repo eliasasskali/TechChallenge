@@ -6,6 +6,15 @@ import SwiftUI
 
 struct UsersListView: View {
     @ObservedObject var viewModel: UsersListViewModel
+    @State private var searchText = ""
+    
+    var filteredUsers: [User] {
+        return if searchText.isEmpty {
+            viewModel.users
+        } else {
+            viewModel.filterUsers(by: searchText)
+        }
+    }
     
     init(viewModel: UsersListViewModel) {
         self.viewModel = viewModel
@@ -15,11 +24,11 @@ struct UsersListView: View {
         NavigationStack {
             VStack(spacing: .zero) {
                 List {
-                    ForEach(viewModel.users, id: \.self) { user in
+                    ForEach(filteredUsers, id: \.self) { user in
                         NavigationLink(value: user) {
                             UserListItemView(user: user)
                                 .onAppear {
-                                    if user == viewModel.users.last {
+                                    if user == viewModel.users.last && searchText.isEmpty {
                                         Task {
                                             await viewModel.loadMoreUsers()
                                         }
@@ -41,6 +50,10 @@ struct UsersListView: View {
             .navigationDestination(for: User.self) { user in
                 UserDetailView(user: user)
             }
+            .searchable(
+                text: $searchText,
+                placement: .navigationBarDrawer(displayMode: .always)
+            )
         }
     }
     
@@ -62,7 +75,8 @@ struct UsersListView: View {
             ),
             deleteUserUseCase: DeleteUserUseCaseDefault(
                 dataSource:  UsersDataSourceDefault()
-            )
+            ),
+            searchUsersUseCase: SearchUsersUseCaseDefault()
         )
     )
 }
