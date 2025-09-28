@@ -21,22 +21,22 @@ final class UsersDataSourceDefaultTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_whenLoadUsersFromFile_thenAllUsersAreReturned() async {
+    func test_whenLoadUsersFromFile_thenAllUsersAreReturned() async throws {
         copyTestJSONToDocuments()
         
-        let users = await dataSource.loadStoredUsersOrFetch()
+        let users = try await dataSource.loadStoredUsersOrFetch()
         
         XCTAssertEqual(users.count, 5)
         XCTAssertEqual(users, UsersDataSourceMock.jsonUsers)
     }
     
     
-    func test_whenDeleteUser_thenUserIsRemoved() async {
+    func test_whenDeleteUser_thenUserIsRemoved() async throws {
         copyTestJSONToDocuments()
-        var users = await dataSource.loadStoredUsersOrFetch()
+        var users = try await dataSource.loadStoredUsersOrFetch()
         let userToDelete = users.last!
         
-        users = await dataSource.deleteUser(with: userToDelete.id)
+        users = try await dataSource.deleteUser(with: userToDelete.id)
         
         XCTAssertFalse(users.contains(where: { $0.id == userToDelete.id }),)
         

@@ -9,6 +9,22 @@ struct UsersResponse: Codable {
     let results: [UserDto]
 }
 
+// MARK: - UsersDataSource Errors
+
+enum UsersDataSourceError: Error, LocalizedError {
+    case networkError
+    case saveError
+    
+    var errorDescription: String? {
+        switch self {
+        case .networkError:
+            return "users_fetch_network_error".localized
+        case .saveError:
+            return "users_save_error".localized
+        }
+    }
+}
+
 // MARK: - UsersDataSourceDefault
 
 final actor UsersDataSourceDefault: UsersDataSource {
@@ -39,11 +55,11 @@ final actor UsersDataSourceDefault: UsersDataSource {
         set { UserDefaults.standard.set(Array(newValue), forKey: Constants.deletedUsersIDs) }
     }
     
-    func fetchNextPage() async -> [User] {
+    func fetchNextPage() async throws -> [User] {
         let nextPage = currentPage + 1
 
         guard let url = URL(string: urlString(for: nextPage)) else {
-            return loadUsersFromFile()?.map { $0.toDomain() } ?? []
+            throw UsersDataSourceError.networkError
         }
                 
         do {
@@ -51,8 +67,7 @@ final actor UsersDataSourceDefault: UsersDataSource {
             
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                // TODO: Handle or throw error
-                return loadUsersFromFile()?.map { $0.toDomain() } ?? []
+                throw UsersDataSourceError.networkError
             }
             
             let decoder = JSONDecoder()
@@ -69,29 +84,27 @@ final actor UsersDataSourceDefault: UsersDataSource {
             }
                         
             allUsers.append(contentsOf: filteredNewUsers)
-            saveUsersToFile(allUsers)
+            try saveUsersToFile(allUsers)
             
             currentPage = nextPage
             
             return filteredNewUsers.map { $0.toDomain() }
         } catch {
-            // TODO: Handle or throw error
-            print("Error fetching users: \(error)")
-            return loadUsersFromFile()?.map { $0.toDomain() } ?? []
+            throw UsersDataSourceError.networkError
         }
     }
     
-    func loadStoredUsersOrFetch() async -> [User] {
+    func loadStoredUsersOrFetch() async throws -> [User] {
         guard let localUsers = loadUsersFromFile(), !localUsers.isEmpty else {
-            return await fetchNextPage()
+            return try await fetchNextPage()
         }
         return localUsers.map { $0.toDomain() }
     }
     
-    func deleteUser(with id: String) async -> [User] {
+    func deleteUser(with id: String) async throws -> [User] {
         var users = loadUsersFromFile() ?? []
         users.removeAll { $0.login.uuid == id }
-        saveUsersToFile(users)
+        try saveUsersToFile(users)
         deletedUsersIDs.insert(id)
         return users.map { $0.toDomain() }
     }
@@ -104,20 +117,22 @@ private extension UsersDataSourceDefault {
     }
     
     func loadUsersFromFile() -> [UserDto]? {
-        guard let fileURL = fileURL,
+        guard let fileURL,
               let data = try? Data(contentsOf: fileURL) else { return nil }
         return try? JSONDecoder().decode([UserDto].self, from: data)
     }
     
-    private func saveUsersToFile(_ users: [UserDto]) {
-        guard let fileURL else { return }
+    private func saveUsersToFile(_ users: [UserDto]) throws {
+        guard let fileURL else {
+            throw UsersDataSourceError.saveError
+        }
         do {
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             let data = try encoder.encode(users)
             try data.write(to: fileURL)
         } catch {
-            print("Failed to save users: \(error)")
+            throw UsersDataSourceError.saveError
         }
     }
 }

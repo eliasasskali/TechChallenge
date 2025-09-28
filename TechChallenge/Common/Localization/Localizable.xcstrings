@@ -1,8 +1,38 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    " %@" : {
-
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "generic_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Something went wrong. Please try again.\""
+          }
+        }
+      }
+    },
+    "ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
     },
     "product_detail_info_email" : {
       "extractionState" : "manual",
@@ -55,6 +85,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Registered date:"
+          }
+        }
+      }
+    },
+    "users_fetch_network_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch users. Please check your internet connection or maybe there is a problem on our end."
+          }
+        }
+      }
+    },
+    "users_save_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save users locally. Please try again."
           }
         }
       }

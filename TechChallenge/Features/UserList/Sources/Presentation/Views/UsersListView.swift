@@ -7,7 +7,7 @@ import SwiftUI
 struct UsersListView: View {
     @ObservedObject var viewModel: UsersListViewModel
     @State private var searchText = ""
-    
+
     var filteredUsers: [User] {
         return if searchText.isEmpty {
             viewModel.users
@@ -53,6 +53,15 @@ struct UsersListView: View {
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer(displayMode: .always)
+            )
+            .alert(
+                "error".localized,
+                isPresented: .constant(viewModel.errorMessage != nil),
+                actions: {
+                    Button("ok".localized) { viewModel.errorMessage = nil }
+                }, message: {
+                    Text(viewModel.errorMessage ?? "")
+                }
             )
         }
     }
