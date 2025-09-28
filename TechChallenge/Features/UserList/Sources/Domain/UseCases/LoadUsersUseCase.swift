@@ -5,19 +5,18 @@
 import Foundation
 
 protocol LoadUsersUseCase {
-    func loadStoredUsers() async -> [User]
+    func loadStoredUsersOrFetch() async -> [User]
     func fetchNextPage() async -> [User]
 }
 
 struct LoadUsersUseCaseDefault: LoadUsersUseCase {
     let dataSource: UsersDataSource
     
-    func loadStoredUsers() async -> [User] {
-        await dataSource.loadStoredUsers()
+    func loadStoredUsersOrFetch() async -> [User] {
+        await dataSource.loadStoredUsersOrFetch()
     }
     
     func fetchNextPage() async -> [User] {
         await dataSource.fetchNextPage()
     }
-    
 }
