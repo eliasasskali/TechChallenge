@@ -12,29 +12,35 @@ struct UsersListView: View {
     }
     
     var body: some View {
-        VStack(spacing: .zero) {
-            List {
-                ForEach(viewModel.users, id: \.self) { user in
-                    UserListItemView(user: user)
-                        .onAppear {
-                            if user == viewModel.users.last {
-                                Task {
-                                    print("load more users")
-                                    await viewModel.loadMoreUsers()
+        NavigationStack {
+            VStack(spacing: .zero) {
+                List {
+                    ForEach(viewModel.users, id: \.self) { user in
+                        NavigationLink(value: user) {
+                            UserListItemView(user: user)
+                                .onAppear {
+                                    if user == viewModel.users.last {
+                                        Task {
+                                            await viewModel.loadMoreUsers()
+                                        }
+                                    }
                                 }
-                            }
                         }
+                    }
+                    .onDelete(perform: deleteUser)
                 }
-                .onDelete(perform: deleteUser)
+                
+                if viewModel.isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, idealHeight: 80)
+                }
             }
-            
-            if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, idealHeight: 80)
+            .task {
+                await viewModel.loadUsers()
             }
-        }
-        .task {
-            await viewModel.loadUsers()
+            .navigationDestination(for: User.self) { user in
+                UserDetailView(user: user)
+            }
         }
     }
     

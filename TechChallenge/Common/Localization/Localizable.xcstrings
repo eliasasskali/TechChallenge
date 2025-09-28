@@ -1,7 +1,64 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    " %@" : {
 
+    },
+    "product_detail_info_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email:"
+          }
+        }
+      }
+    },
+    "product_detail_info_gender" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gender:"
+          }
+        }
+      }
+    },
+    "product_detail_info_location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location:"
+          }
+        }
+      }
+    },
+    "product_detail_info_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name:"
+          }
+        }
+      }
+    },
+    "product_detail_info_registered_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registered date:"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }
